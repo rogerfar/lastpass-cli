@@ -39,6 +39,7 @@
 #include "version.h"
 #include "pins.h"
 #include "cipher.h"
+#include "config.h"
 #include <stdarg.h>
 #include <stdint.h>
 #include <errno.h>
@@ -277,7 +278,8 @@ char *http_post_lastpass_v_noexit(const char *server, const char *page, const st
 	memset(&result, 0, sizeof(result));
 	curl_easy_setopt(curl, CURLOPT_URL, url);
 	curl_easy_setopt(curl, CURLOPT_USERAGENT, LASTPASS_CLI_USERAGENT);
-
+	curl_easy_setopt(curl, CURLOPT_CAINFO, config_path("ca-bundle.crt"));
+	
 	/* TODO: Make this optional via either env vars and/or an option for
 	 *       lpass -4 or lpass -6
 	 */
